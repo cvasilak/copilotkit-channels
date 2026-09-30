@@ -67,6 +67,11 @@ you actually ran; do not claim a check that did not run.
 
 ## Gotchas that cost the most time
 
+- **Run package scripts as `pnpm run <script>`, never `pnpm <script>`.** pnpm 11
+  ships a built-in `pnpm runtime` command (Node/Deno/Bun version management) that
+  shadows the `runtime` script and fails with `ERR_PNPM_RUNTIME_NO_SUBCOMMAND`,
+  even when `packageManager` pins pnpm 10, because the built-in is resolved before
+  the pinned version takes over. `pnpm run` always means the script.
 - **The runtime does not hot-reload Channel wiring.** After editing a handler,
   the agent, or the Channel, restart the process and prove `online` again. A stale
   process answering with the old behavior is indistinguishable from a change that
@@ -75,7 +80,7 @@ you actually ran; do not claim a check that did not run.
   a valid degraded state. Only `controls.status()` distinguishes them, and
   `/api/copilotkit/info` returning 200 says nothing about Slack.
 - **`LOG_LEVEL` defaults to `error` while every Channel lifecycle breadcrumb is
-  emitted at `warn`.** Run `LOG_LEVEL=debug pnpm runtime`. The line
+  emitted at `warn`.** Run `LOG_LEVEL=debug pnpm run runtime`. The line
   `channel "<name>" requires setup` is the highest-value diagnostic here and is
   discarded at the default level.
 - **Channel names claim deliveries.** Two runtimes declaring the same name in one

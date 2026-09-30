@@ -16,8 +16,8 @@ This file adds only what is specific to this checkout.
 | Intelligence project | `copilotkit-channels` (id `6702`), in `.copilotkit/project.json` |
 | Channel name | `copilotkit-channels`: `.copilotkit/channels.json` and `INTELLIGENCE_CHANNEL_NAME` must match exactly |
 | Provider | Slack only. No Teams adapter is declared. |
-| Runtime | `pnpm runtime` (`tsx server.ts`), port 3000, base path `/api/copilotkit` |
-| Agent | `pnpm agent` (LangGraph over AG-UI, Python via `uv`), port 8123 |
+| Runtime | `pnpm run runtime` (`tsx server.ts`), port 3000, base path `/api/copilotkit` |
+| Agent | `pnpm run agent` (LangGraph over AG-UI, Python via `uv`), port 8123 |
 | Package managers | pnpm, pinned by `packageManager` in `package.json`; `uv` for `agent/` |
 
 Ports 8001 and 8080 are used by other services on this machine. Keep the runtime on 3000
@@ -40,7 +40,9 @@ and the agent on 8123.
 
 ## Running and verifying
 
-- Prefer `pnpm agent` and `pnpm runtime` over `pnpm dev`. The `predev` hook downloads
+- Always use `pnpm run <script>`. The global pnpm on this machine is 11.x, whose
+  built-in `pnpm runtime` command shadows the `runtime` script (see AGENTS.md).
+- Prefer `pnpm run agent` and `pnpm run runtime` over `pnpm run dev`. The `predev` hook downloads
   Playwright Chromium, which this setup has not needed.
 - Restart the runtime after changing Channel wiring, handlers, or the agent. It does not
   hot-reload.

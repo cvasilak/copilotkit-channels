@@ -23,8 +23,8 @@
 > | Intelligence project | `copilotkit-channels` (id `6702`), recorded in `.copilotkit/project.json` |
 > | Channel name | `copilotkit-channels` (`.copilotkit/channels.json`, `INTELLIGENCE_CHANNEL_NAME`) |
 > | Chat provider | Slack app `copilotkit-channels`, Socket Mode off |
-> | Runtime | `pnpm runtime` on `http://localhost:3000`, base path `/api/copilotkit` |
-> | Agent | `pnpm agent` on `http://localhost:8123/` (`AGENT_URL`) |
+> | Runtime | `pnpm run runtime` on `http://localhost:3000`, base path `/api/copilotkit` |
+> | Agent | `pnpm run agent` on `http://localhost:8123/` (`AGENT_URL`) |
 >
 > **Environment.** One root `.env`, gitignored, loaded by both services. It
 > holds `OPENAI_API_KEY`, `INTELLIGENCE_API_KEY` (a copy of the
@@ -39,11 +39,11 @@
 >
 > ```bash
 > pnpm install && uv sync --project agent --locked
-> pnpm agent      # terminal 1
-> pnpm runtime    # terminal 2 (add LOG_LEVEL=debug to see Channel lifecycle logs)
+> pnpm run agent      # terminal 1
+> pnpm run runtime    # terminal 2 (add LOG_LEVEL=debug to see Channel lifecycle logs)
 > ```
 >
-> `pnpm dev` runs both with reload, but its `predev` hook also downloads
+> `pnpm run dev` runs both with reload, but its `predev` hook also downloads
 > Playwright Chromium.
 >
 > **Use it in Slack.** Run `/invite @copilotkit-channels` in a channel, then
@@ -242,11 +242,11 @@ Learning Container.
 ### 4. Run the stack
 
 ```bash
-pnpm dev
+pnpm run dev
 ```
 
 The `predev` hook syncs the locked Python environment and installs Playwright's
-Chromium. `pnpm dev` then runs the Python agent with reload enabled and the Node
+Chromium. `pnpm run dev` then runs the Python agent with reload enabled and the Node
 runtime in watch mode. The runtime waits for its Intelligence connection to
 become ready before its HTTP listener accepts traffic.
 
@@ -287,7 +287,7 @@ and are not faults: it flags `INTELLIGENCE_API_URL` and
 [`app/env.ts`](./app/env.ts) defaults them in code rather than in `.env`.
 
 ```bash
-LOG_LEVEL=debug pnpm runtime
+LOG_LEVEL=debug pnpm run runtime
 ```
 
 The runtime logger defaults to `error`, while every Channel lifecycle

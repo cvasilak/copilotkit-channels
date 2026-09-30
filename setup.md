@@ -134,7 +134,7 @@ substantial work.
 Run it alone:
 
 ```bash
-pnpm agent
+pnpm run agent
 ```
 
 The AG-UI endpoint is `http://localhost:8123/`; `/health` reports the
@@ -172,10 +172,10 @@ derived from it, so `channels.ready()` simply hangs until it times out.
 Start the runtime:
 
 ```bash
-pnpm runtime
+pnpm run runtime
 ```
 
-`pnpm start` and `pnpm runtime` run the same canonical entrypoint; `pnpm dev`
+`pnpm run start` and `pnpm run runtime` run the same canonical entrypoint; `pnpm run dev`
 adds watch mode for both services. Startup waits for
 `listener.channels.ready()` before opening HTTP. SIGINT and SIGTERM stop
 Channels, HTTP, and the rendering browser exactly once, even if shutdown is
@@ -316,7 +316,7 @@ needs. OpenTag connects to GitHub's hosted MCP with an explicit allowlist of
 read-only repository, pull-request, Actions-run, and job-log tools. Every loaded
 tool must advertise `readOnlyHint`; triggers, reruns, cancels, deletes, and other
 writes are excluded. Set `GITHUB_MCP_URL` only
-to override the hosted endpoint, then restart `pnpm agent` so it rediscovers the
+to override the hosted endpoint, then restart `pnpm run agent` so it rediscovers the
 tools.
 
 For coding, prefer a fine-grained `GITHUB_CODER_TOKEN`; classic PATs continue to
@@ -340,7 +340,7 @@ Create a PostHog personal API key using the **MCP Server** preset, then set
 `POSTHOG_PERSONAL_API_KEY`. OpenTag connects to `https://mcp.posthog.com/mcp` in
 token-efficient CLI mode with server-enforced read-only access. Set
 `POSTHOG_MCP_URL` only to override the complete endpoint, including its
-`mode=cli&readonly=true` safety parameters. Restart `pnpm agent` after changing
+`mode=cli&readonly=true` safety parameters. Restart `pnpm run agent` after changing
 either variable.
 
 ### Linear
@@ -351,7 +351,7 @@ Railway preserves this optional secret on the `agent` service.
 ### Notion
 
 Notion is optional and remote-only, not a separate Railway service. Set both
-`NOTION_MCP_URL` and `NOTION_MCP_AUTH_TOKEN`, then restart `pnpm agent` so it
+`NOTION_MCP_URL` and `NOTION_MCP_AUTH_TOKEN`, then restart `pnpm run agent` so it
 discovers the tools. If either value is absent OpenTag skips Notion without
 blocking startup.
 

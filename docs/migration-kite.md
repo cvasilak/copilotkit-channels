@@ -88,7 +88,7 @@ npx --yes copilotkit@latest channels status --json
 ```
 
 ```bash
-LOG_LEVEL=debug pnpm runtime
+LOG_LEVEL=debug pnpm run runtime
 ```
 
 The runtime logger defaults to `error` while every Channel lifecycle breadcrumb
