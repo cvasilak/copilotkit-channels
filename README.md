@@ -12,6 +12,46 @@
 
 </div>
 
+> [!NOTE]
+> **This checkout: `copilotkit-channels`.** A local OpenTag instance wired to a
+> managed Slack Channel through CopilotKit Intelligence. The upstream OpenTag
+> README follows unchanged below this note.
+>
+> | Setting | Value |
+> | --- | --- |
+> | Upstream | [CopilotKit/OpenTag](https://github.com/CopilotKit/OpenTag) (`main` at `403cd3a`) |
+> | Intelligence project | `copilotkit-channels` (id `6702`), recorded in `.copilotkit/project.json` |
+> | Channel name | `copilotkit-channels` (`.copilotkit/channels.json`, `INTELLIGENCE_CHANNEL_NAME`) |
+> | Chat provider | Slack app `copilotkit-channels`, Socket Mode off |
+> | Runtime | `pnpm runtime` on `http://localhost:3000`, base path `/api/copilotkit` |
+> | Agent | `pnpm agent` on `http://localhost:8123/` (`AGENT_URL`) |
+>
+> **Environment.** One root `.env`, gitignored, loaded by both services. It
+> holds `OPENAI_API_KEY`, `INTELLIGENCE_API_KEY` (a copy of the
+> `CPK_INTELLIGENCE_API_KEY` that `copilotkit project select` wrote),
+> `INTELLIGENCE_CHANNEL_NAME=copilotkit-channels`, and
+> `AGENT_URL=http://localhost:8123/`. The two
+> `INTELLIGENCE_CHANNEL_COPILOTKIT_CHANNELS_SLACK_*` lines were only needed by
+> `copilotkit channels add`. Intelligence now stores the Slack credentials
+> server-side, so those lines can be deleted.
+>
+> **Run it locally.**
+>
+> ```bash
+> pnpm install && uv sync --project agent --locked
+> pnpm agent      # terminal 1
+> pnpm runtime    # terminal 2 (add LOG_LEVEL=debug to see Channel lifecycle logs)
+> ```
+>
+> `pnpm dev` runs both with reload, but its `predev` hook also downloads
+> Playwright Chromium.
+>
+> **Use it in Slack.** Run `/invite @copilotkit-channels` in a channel, then
+> mention `@copilotkit-channels` with a question.
+>
+> **Check status.** `npx copilotkit@latest channels status --json` should show
+> `adapters.slack: "attached"` and `server: "present"`.
+
 https://github.com/user-attachments/assets/46fb9854-7540-4756-a33f-fe97810f80d4
 
 <div align="center">

@@ -28,3 +28,7 @@ deployment/aws/cdk.context.json
 docs/composio-tools-design.md
 docs/composio-tools-plan.md
 docs/composio-agent-port-plan.md
+
+# Added by CopilotKit CLI: credential files, which must never be committed.
+.env.*
+!.env.example
